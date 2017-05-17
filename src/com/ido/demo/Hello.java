@@ -1,11 +1,12 @@
 package com.ido.demo;
 
 import com.ido.data.PostgresConnection;
-import com.ido.data.CreateTable;
+import com.ido.data.BuildAccountTable;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,9 +65,7 @@ public class Hello {
 	  String uri = "jdbc:postgresql://ec2-34-206-239-11.compute-1.amazonaws.com:5432/dan5aser0k39ht?user=u81qb1t3r74suk"
 				+ "&password=p4ab1144e9997175eff43ceada614c4bcd3487662e140c0cdccfbc928801d4516"
 				+ "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
-		CreateTable newTable = new CreateTable();
-		newTable.createContactTable(uri);
-		System.out.println("Database created");
+		Connection conn = new PostgresConnection().getConnection(uri);
 		System.out.println("Salesforce session ID = " + session);
 		String sfUrl = "https://nyccct-dev-ed.my.salesforce.com/services/data/v20.0/sobjects/Account/describe";
 		HttpGet get = new HttpGet(sfUrl);
@@ -81,17 +80,23 @@ public class Hello {
 		}
 		JSONObject json = new JSONObject(buffer.toString());
 		JSONArray fields = json.getJSONArray("fields");
+		ArrayList<String> newFields = new ArrayList<String>();
 		if(fields != null){
-			ArrayList<String> newFields = new ArrayList<String>();
+			
 			for(int i = 0; i < fields.length(); i++){
 				JSONObject field = fields.getJSONObject(i);
 				String fieldAdd = field.getString("name");
 				newFields.add(fieldAdd);
-				System.out.println(field.getString("name"));
+				System.out.println(field.getString("name"));				
 			}
 		}else{
 			System.out.println("Couldn't get \"fields\" array");
 		}
+		if(newFields != null){
+			new BuildAccountTable(conn, newFields);
+			System.out.println("Database table \"sfaccount\" has been created");
+		}
+		
 		return "{'message':'success'}";
   }
 
