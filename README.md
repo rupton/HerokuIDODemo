@@ -7,6 +7,7 @@ This version currently only works on the Account object. Future versions will su
 ## Getting Started
 
 Fork this repo and install it into you Heroku app or deploy using the Deploy to Heroku button. Once you have created your application, you will need to add PostgreSQL add-on to your Heorku app as well as Heroku Connect with External Objects
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/rupton/HerokuIDODemo)
 
 ### Prerequisites
 
