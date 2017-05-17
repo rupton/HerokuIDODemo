@@ -11,53 +11,18 @@ Fork this repo and install it into you Heroku app or deploy using the Deploy to 
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+The Heroku application your deploy this to will need to have PostgreSQL and Heroku Connect installed in it to work properly. 
 
-```
-Give examples
-```
+Check [here](https://devcenter.heroku.com/articles/getting-started-with-heroku-and-connect-without-local-dev#introduction) for details on working wit Heroku Connect
+
+You can find more detail on installing Heroku Postgress [here](https://devcenter.heroku.com/categories/heroku-postgres)
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
+The simplest way to install the application is with the Deploy to Heroku Button
 
-Say what the step will be
 
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/rupton/HerokuIDODemo)
 
 ## Built With
 
