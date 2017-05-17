@@ -1,0 +1,7 @@
+{
+  "name": "HerokuIDODemo",
+  "description": "A demo application for salesforce.org and Heroku data archiving",
+  "repository": "https://github.com/rupton/HerokuIDODemo",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": ["Jersey", "Java", "Archive"]
+}
