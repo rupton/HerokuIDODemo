@@ -32,7 +32,7 @@ The simplest way to install the application is with the Deploy to Heroku Button
 
 ## Authors
 
-* **Ryan Upton** - *Initial work* - [rupton](https://github.com/rupton
+* **Ryan Upton** - *Initial work* - [rupton](https://github.com/rupton)
 
 See also the list of contributors who participated in this project.
 
