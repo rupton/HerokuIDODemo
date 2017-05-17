@@ -6,8 +6,7 @@ This version currently only works on the Account object. Future versions will su
 
 ## Getting Started
 
-Fork this repo and install it into you Heroku app or deploy using the Deploy to Heroku button. Once you have created your application, you will need to add PostgreSQL add-on to your Heorku app as well as Heroku Connect with External Objects
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/rupton/HerokuIDODemo)
+Fork this repo and install it into you Heroku app or deploy using the Deploy to Heroku button. Once you have created your application, you will need to add PostgreSQL add-on to your Heorku app as well as Heroku Connect with External Objects.
 
 ### Prerequisites
 
@@ -30,19 +29,12 @@ The simplest way to install the application is with the Deploy to Heroku Button
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Ryan Upton** - *Initial work* - [rupton](https://github.com/rupton
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of contributors who participated in this project.
 
 ## License
 
