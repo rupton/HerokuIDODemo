@@ -2,6 +2,6 @@
   "name": "HerokuIDODemo",
   "description": "A demo application for salesforce.org and Heroku data archiving",
   "repository": "https://github.com/rupton/HerokuIDODemo",
-  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "logo": "http://www.salesforce.org/wp-content/themes/salesforce2015/images/sforg.svg",
   "keywords": ["Jersey", "Java", "Archive"]
 }
