@@ -15,16 +15,13 @@ Connection conn = null;
 			try {
 				Class.forName("org.postgresql.Driver");
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			conn = DriverManager.getConnection(URL);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return conn;
-		
 	}
 	
 	public void closeConnection(Connection conn) throws SQLException{
