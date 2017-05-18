@@ -22,7 +22,4 @@ buildNumber.properties
 .mvn/timing.properties
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
-
-
-
-*.log
+/*.log
