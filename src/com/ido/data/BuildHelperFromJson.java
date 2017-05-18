@@ -1,6 +1,5 @@
 package com.ido.data;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class BuildHelperFromJson {
 			sObjects.add(describe);
 			logger.info("Adding " + describe.toString());
 		}
-		System.out.println(sObjects.size());
+		logger.info(sObjects.size() + " SObjects have been queued to be added to the database");
 		//SobjectDescribe describe = mapper.readValue(content, valueType);
 		
 		return sObjects;
