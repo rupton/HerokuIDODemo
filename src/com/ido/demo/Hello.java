@@ -4,6 +4,7 @@ import com.ido.data.PostgresConnection;
 import com.ido.data.BuildAccountTable;
 import com.ido.data.BuildHelperFromJson;
 import com.ido.data.SobjectDescribe;
+import com.ido.data.ParseAccountJson;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -45,12 +46,8 @@ final static Logger logger = Logger.getLogger("Hello.class");
   // @session is either a session id or Authorization header passed in from Salesforce
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public String sayHtmlHello(@QueryParam("session") String session) throws SQLException, ClientProtocolException, IOException{
-	  
+  public String sayHtmlHello(@QueryParam("session") String session) throws SQLException, ClientProtocolException, IOException{	  
 	  //build database
-	  //String uri = "jdbc:postgresql://ec2-34-206-239-11.compute-1.amazonaws.com:5432/dan5aser0k39ht?user=u81qb1t3r74suk"
-		//		+ "&password=p4ab1144e9997175eff43ceada614c4bcd3487662e140c0cdccfbc928801d4516"
-		//		+ "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 	  	PostgresConnection pconn = new PostgresConnection();
 		Connection conn = pconn.getConnection();
 		logger.info("Salesforce session ID = " + session);
@@ -83,8 +80,9 @@ final static Logger logger = Logger.getLogger("Hello.class");
   public String uploadRecords(String requestBody){
 	  JSONArray json = new JSONArray(requestBody);
 	  logger.info("Received POST for Account records to archive");
-	  
-	  return "{\"status\":200, \"message\":\"success\"";
+	  ParseAccountJson parser = new ParseAccountJson();
+	  parser.parseAccounts(json);
+	  return "{\"status\":200, \"message\":\"success\"}";
   }
   
   

@@ -31,7 +31,7 @@ public class BuildHelperFromJson {
 			sObjects.add(describe);
 			logger.info("Adding " + describe.toString());
 		}
-		logger.info(sObjects.size() + " SObjects have been queued to be added to the database");
+		logger.debug(sObjects.size() + " SObjects have been queued to be added to the database");
 		//SobjectDescribe describe = mapper.readValue(content, valueType);
 		
 		return sObjects;

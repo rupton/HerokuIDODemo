@@ -8,11 +8,17 @@ import org.apache.log4j.Logger;
 
 public class PostgresConnection {
 	Connection conn = null;
-	final String url = System.getenv("JDBC_DATABASE_URL");
 	static final Logger logger = Logger.getLogger(PostgresConnection.class);
 	public Connection getConnection(){
-		if(! "".equals(url)){
-			try {
+		String url = System.getenv("JDBC_DATABASE_URL");
+		if(url == null || url.equals("")){
+			logger.debug("Switching to alternate url");
+			url ="jdbc:postgresql://ec2-34-206-239-11.compute-1.amazonaws.com:5432/dan5aser0k39ht?user=u81qb1t3r74suk"
+						+ "&password=p4ab1144e9997175eff43ceada614c4bcd3487662e140c0cdccfbc928801d4516"
+						+ "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+		}
+		logger.debug("Attempting database connection with: " + url);
+		try {
 				Class.forName("org.postgresql.Driver");
 			} catch (ClassNotFoundException e) {
 				logger.error(e.getMessage());
@@ -21,9 +27,8 @@ public class PostgresConnection {
 			} catch (SQLException e) {
 				logger.error(e.getErrorCode() + " " + e.getMessage());
 			}
-		}
+		
 		return conn;
-
 	}
 	public Connection getConnection(String URL){
 		try {
@@ -44,7 +49,7 @@ public class PostgresConnection {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+
 				logger.error(e.getErrorCode() + " " + e.getMessage());
 			}
 		}

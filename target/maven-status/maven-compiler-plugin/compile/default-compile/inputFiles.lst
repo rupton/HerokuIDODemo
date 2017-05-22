@@ -1,7 +1,8 @@
-C:\Users\ryanj\git\HerokuIDODemo1\src\com\ido\data\BuildAccountTable.java
-C:\Users\ryanj\git\HerokuIDODemo1\src\com\ido\data\BuildHelperFromJson.java
-C:\Users\ryanj\git\HerokuIDODemo1\src\com\ido\demo\Hello.java
-C:\Users\ryanj\git\HerokuIDODemo1\src\com\ido\data\SfSoapTypes.java
-C:\Users\ryanj\git\HerokuIDODemo1\src\com\ido\data\CreateTable.java
-C:\Users\ryanj\git\HerokuIDODemo1\src\com\ido\data\SobjectDescribe.java
-C:\Users\ryanj\git\HerokuIDODemo1\src\com\ido\data\PostgresConnection.java
+/Users/ryanupton/git/HerokuIDODemo/src/com/ido/data/SobjectDescribe.java
+/Users/ryanupton/git/HerokuIDODemo/src/com/ido/demo/Hello.java
+/Users/ryanupton/git/HerokuIDODemo/src/com/ido/data/ParseAccountJson.java
+/Users/ryanupton/git/HerokuIDODemo/src/com/ido/data/BuildHelperFromJson.java
+/Users/ryanupton/git/HerokuIDODemo/src/com/ido/data/BuildAccountTable.java
+/Users/ryanupton/git/HerokuIDODemo/src/com/ido/data/SfSoapTypes.java
+/Users/ryanupton/git/HerokuIDODemo/src/com/ido/data/PostgresConnection.java
+/Users/ryanupton/git/HerokuIDODemo/src/com/ido/data/CreateTable.java

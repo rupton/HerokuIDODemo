@@ -73,7 +73,7 @@ public class BuildAccountTable {
 				}
 			}
 			int[] updateCounts = batch.executeBatch();
-			logger.info(updateCounts + " fields were added to sfaccount table.");
+			logger.info(updateCounts.length + " fields were added to sfaccount table.");
 			conn.commit();
 		}
 }

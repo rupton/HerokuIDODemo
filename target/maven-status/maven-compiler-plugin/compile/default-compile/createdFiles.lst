@@ -1,0 +1,8 @@
+com/ido/data/SfSoapTypes.class
+com/ido/demo/Hello.class
+com/ido/data/PostgresConnection.class
+com/ido/data/BuildHelperFromJson.class
+com/ido/data/CreateTable.class
+com/ido/data/SobjectDescribe.class
+com/ido/data/ParseAccountJson.class
+com/ido/data/BuildAccountTable.class
