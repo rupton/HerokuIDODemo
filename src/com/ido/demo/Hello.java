@@ -25,6 +25,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.ws.rs.QueryParam;
@@ -39,7 +40,7 @@ import javax.ws.rs.QueryParam;
 @Path("/hello")
 public class Hello {
 
-	Logger logger = Logger.getLogger("Hello.class");
+final static Logger logger = Logger.getLogger("Hello.class");
   // This method is called if HTML is request
   // @session is either a session id or Authorization header passed in from Salesforce
   @GET
@@ -47,11 +48,11 @@ public class Hello {
   public String sayHtmlHello(@QueryParam("session") String session) throws SQLException, ClientProtocolException, IOException{
 	  
 	  //build database
-	  String uri = "jdbc:postgresql://ec2-34-206-239-11.compute-1.amazonaws.com:5432/dan5aser0k39ht?user=u81qb1t3r74suk"
-				+ "&password=p4ab1144e9997175eff43ceada614c4bcd3487662e140c0cdccfbc928801d4516"
-				+ "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+	  //String uri = "jdbc:postgresql://ec2-34-206-239-11.compute-1.amazonaws.com:5432/dan5aser0k39ht?user=u81qb1t3r74suk"
+		//		+ "&password=p4ab1144e9997175eff43ceada614c4bcd3487662e140c0cdccfbc928801d4516"
+		//		+ "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 	  	PostgresConnection pconn = new PostgresConnection();
-		Connection conn = pconn.getConnection(uri);
+		Connection conn = pconn.getConnection();
 		logger.info("Salesforce session ID = " + session);
 		String sfUrl = "https://nyccct-dev-ed.my.salesforce.com/services/data/v20.0/sobjects/Account/describe";
 		HttpGet get = new HttpGet(sfUrl);
@@ -79,7 +80,10 @@ public class Hello {
   @POST
   @Path("{upload}")
   @Produces(MediaType.APPLICATION_JSON)
-  public String uploadRecords(){
+  public String uploadRecords(String requestBody){
+	  JSONArray json = new JSONArray(requestBody);
+	  logger.info("Received POST for Account records to archive");
+	  
 	  return "{\"status\":200, \"message\":\"success\"";
   }
   
