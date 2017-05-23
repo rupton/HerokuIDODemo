@@ -6,9 +6,16 @@ import java.sql.SQLException;
 
 public class PostgresConnection {
 Connection conn = null;
-	
+	String uri = "jdbc:postgresql://ec2-34-206-239-11.compute-1.amazonaws.com:5432/dan5aser0k39ht?user=u81qb1t3r74suk"
+		+ "&password=p4ab1144e9997175eff43ceada614c4bcd3487662e140c0cdccfbc928801d4516"
+		+ "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 	public Connection getConnection(){
-		return getConnection("myURL");
+		String myURL = System.getenv("JDBC_DATABASE_URL");
+		if(myURL == null || "".equals(myURL)){
+			return getConnection(uri);
+		}else{
+			return getConnection(myURL);
+		}
 	}
 	public Connection getConnection(String URL){
 		try {
