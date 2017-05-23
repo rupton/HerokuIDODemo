@@ -8,15 +8,22 @@ import com.ido.data.SobjectDescribe;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.apache.log4j.Logger;
 
@@ -25,6 +32,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.ws.rs.QueryParam;
@@ -44,7 +52,7 @@ public class Hello {
   // @session is either a session id or Authorization header passed in from Salesforce
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public String sayHtmlHello(@QueryParam("session") String session) throws SQLException, ClientProtocolException, IOException{
+  public String sayHtmlHello(@QueryParam("session") String session) throws SQLException, ClientProtocolException, IOException, URISyntaxException{
 	  
 	  //build database
 	  String uri = "jdbc:postgresql://ec2-34-206-239-11.compute-1.amazonaws.com:5432/dan5aser0k39ht?user=u81qb1t3r74suk"
@@ -52,8 +60,8 @@ public class Hello {
 				+ "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 	  	PostgresConnection pconn = new PostgresConnection();
 		Connection conn = pconn.getConnection(uri);
-		logger.info("Salesforce session ID = " + session);
-		String sfUrl = "https://nyccct-dev-ed.my.salesforce.com/services/data/v20.0/sobjects/Account/describe";
+logger.info("Salesforce session ID = " + session);
+		String sfUrl = "https://nyccct-dev-ed.my.salesforce.com/services/data/v39.0/sobjects/Account/describe";
 		HttpGet get = new HttpGet(sfUrl);
 		get.setHeader("AUTHORIZATION", "Bearer " + session);
 		HttpClient client = HttpClientBuilder.create().build();
@@ -79,8 +87,26 @@ public class Hello {
   @POST
   @Path("{upload}")
   @Produces(MediaType.APPLICATION_JSON)
-  public String uploadRecords(){
-	  return "{\"status\":200, \"message\":\"success\"";
+  public String uploadRecords(String requestBody) throws SQLException{
+	  String uri = "jdbc:postgresql://ec2-34-206-239-11.compute-1.amazonaws.com:5432/dan5aser0k39ht?user=u81qb1t3r74suk"
+				+ "&password=p4ab1144e9997175eff43ceada614c4bcd3487662e140c0cdccfbc928801d4516"
+				+ "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+	  	PostgresConnection pconn = new PostgresConnection();
+		Connection conn = pconn.getConnection(uri);
+		Statement statement = conn.createStatement();
+	  logger.debug("Received upload request");
+	  JSONArray json = new JSONArray(requestBody);
+	  logger.debug("Length of input array = " + json.length());
+	  for(int i = 0; i < json.length(); i++){
+		  JSONObject record = json.getJSONObject(i);
+		  Set<String> keys = record.keySet();
+		  keys.remove("ShippingAddress");
+		  keys.remove("BillingAddress");
+		  for(String key: keys){
+			  logger.debug(key + record.get(key));
+		  }
+	  }
+	  return "{\"status\":200, \"message\":\"success\"}";
   }
   
   

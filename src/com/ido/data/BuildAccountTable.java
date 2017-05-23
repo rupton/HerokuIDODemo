@@ -46,7 +46,7 @@ public class BuildAccountTable {
 					batch.addBatch(statementSql);
 					break;
 				case "xsd:dateTime":
-					mType = s.getName() + " timestamp without time zone";
+					mType = s.getName() + " timestamp";
 					statementSql = baseAlter + mType;
 					batch.addBatch(statementSql);
 					break;

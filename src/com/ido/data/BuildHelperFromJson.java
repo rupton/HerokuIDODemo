@@ -18,6 +18,7 @@ public class BuildHelperFromJson {
 	public List<SobjectDescribe> parseSObjectFromJSON(JSONObject obj) {
 		ArrayList<SobjectDescribe> sObjects = new ArrayList<SobjectDescribe>();
 		JSONArray fields = obj.getJSONArray("fields");
+		logger.debug("There are " + fields.length() + " fields to write");
 		for(int i = 0; i < fields.length(); i++){
 			JSONObject field = fields.getJSONObject(i);
 			SobjectDescribe describe = new SobjectDescribe();
