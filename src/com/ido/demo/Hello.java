@@ -55,11 +55,9 @@ public class Hello {
   public String sayHtmlHello(@QueryParam("session") String session) throws SQLException, ClientProtocolException, IOException, URISyntaxException{
 	  
 	  //build database
-	  String uri = "jdbc:postgresql://ec2-34-206-239-11.compute-1.amazonaws.com:5432/dan5aser0k39ht?user=u81qb1t3r74suk"
-				+ "&password=p4ab1144e9997175eff43ceada614c4bcd3487662e140c0cdccfbc928801d4516"
-				+ "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+
 	  	PostgresConnection pconn = new PostgresConnection();
-		Connection conn = pconn.getConnection(uri);
+		Connection conn = pconn.getConnection();
 logger.info("Salesforce session ID = " + session);
 		String sfUrl = "https://nyccct-dev-ed.my.salesforce.com/services/data/v39.0/sobjects/Account/describe";
 		HttpGet get = new HttpGet(sfUrl);
@@ -102,6 +100,7 @@ logger.info("Salesforce session ID = " + session);
 		  Set<String> keys = record.keySet();
 		  keys.remove("ShippingAddress");
 		  keys.remove("BillingAddress");
+		  keys.remove("attributes");
 		  for(String key: keys){
 			  logger.debug(key + record.get(key));
 		  }
