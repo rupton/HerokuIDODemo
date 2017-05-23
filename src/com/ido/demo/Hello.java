@@ -86,11 +86,9 @@ logger.info("Salesforce session ID = " + session);
   @Path("{upload}")
   @Produces(MediaType.APPLICATION_JSON)
   public String uploadRecords(String requestBody) throws SQLException{
-	  String uri = "jdbc:postgresql://ec2-34-206-239-11.compute-1.amazonaws.com:5432/dan5aser0k39ht?user=u81qb1t3r74suk"
-				+ "&password=p4ab1144e9997175eff43ceada614c4bcd3487662e140c0cdccfbc928801d4516"
-				+ "&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+
 	  	PostgresConnection pconn = new PostgresConnection();
-		Connection conn = pconn.getConnection(uri);
+		Connection conn = pconn.getConnection();
 		Statement statement = conn.createStatement();
 	  logger.debug("Received upload request");
 	  JSONArray json = new JSONArray(requestBody);
