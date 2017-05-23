@@ -4,7 +4,10 @@ import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
 public class PostgresConnection {
+	public final static Logger logger = Logger.getLogger(PostgresConnection.class);
 Connection conn = null;
 	String uri = "jdbc:postgresql://ec2-34-206-239-11.compute-1.amazonaws.com:5432/dan5aser0k39ht?user=u81qb1t3r74suk"
 		+ "&password=p4ab1144e9997175eff43ceada614c4bcd3487662e140c0cdccfbc928801d4516"
@@ -12,8 +15,10 @@ Connection conn = null;
 	public Connection getConnection(){
 		String myURL = System.getenv("JDBC_DATABASE_URL");
 		if(myURL == null || "".equals(myURL)){
+			logger.debug("switching to external");
 			return getConnection(uri);
 		}else{
+			logger.debug("using internal");
 			return getConnection(myURL);
 		}
 	}
