@@ -25,7 +25,7 @@ public class BuildAccountTable {
 		
 		public int[] buildTable(Connection conn, List<SobjectDescribe> fields) throws SQLException{
 			final String mStatement = "DROP TABLE IF EXISTS sfaccount;"+
-					"CREATE TABLE sfaccount();";
+					"CREATE TABLE sfaccount(hid serial PRIMARY KEY);";
 			
 			Statement query = conn.createStatement();
 			query.executeUpdate(mStatement);
