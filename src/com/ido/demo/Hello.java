@@ -58,7 +58,6 @@ public class Hello {
 
 	  	PostgresConnection pconn = new PostgresConnection();
 		Connection conn = pconn.getConnection();
-logger.info("Salesforce session ID = " + session);
 		String sfUrl = "https://nyccct-dev-ed.my.salesforce.com/services/data/v39.0/sobjects/Account/describe";
 		HttpGet get = new HttpGet(sfUrl);
 		get.setHeader("AUTHORIZATION", "Bearer " + session);
@@ -77,7 +76,9 @@ logger.info("Salesforce session ID = " + session);
 		//build POJO helpers from request JSON
 		BuildHelperFromJson helper = new BuildHelperFromJson();
 		List<SobjectDescribe> results = helper.parseSObjectFromJSON(json);
-		BuildAccountTable table = new BuildAccountTable(conn, results);
+		logger.debug("Verify sending " + results.size() + " fields");
+		BuildAccountTable table = new BuildAccountTable();
+		int[] buildResults = table.buildTable(conn, results);
 		logger.info("Dynamic sfaccount table has been created and is ready to receive archive data");
 		pconn.closeConnection(conn);
 		return "{'status':200, 'message':'success'}";
@@ -85,24 +86,33 @@ logger.info("Salesforce session ID = " + session);
   @POST
   @Path("{upload}")
   @Produces(MediaType.APPLICATION_JSON)
-  public String uploadRecords(String requestBody) throws SQLException{
+  public String uploadRecords(String requestBody) throws SQLException, IOException{
 
 	  	PostgresConnection pconn = new PostgresConnection();
 		Connection conn = pconn.getConnection();
-		Statement statement = conn.createStatement();
-	  logger.debug("Received upload request");
-	  JSONArray json = new JSONArray(requestBody);
-	  logger.debug("Length of input array = " + json.length());
-	  for(int i = 0; i < json.length(); i++){
-		  JSONObject record = json.getJSONObject(i);
-		  Set<String> keys = record.keySet();
-		  keys.remove("ShippingAddress");
-		  keys.remove("BillingAddress");
-		  keys.remove("attributes");
-		  for(String key: keys){
-			  logger.debug(key + record.get(key));
-		  }
-	  }
+		logger.debug("Received upload request");
+		JSONObject json = new JSONObject(requestBody);
+		String session = json.getString("sessionid");
+		JSONObject selector = json.getJSONObject("selector");
+		String sfUrl = "https://nyccct-dev-ed.my.salesforce.com/services/data/v39.0/sobjects/Account/describe";
+		HttpGet get = new HttpGet(sfUrl);
+		get.setHeader("AUTHORIZATION", "Bearer " + session);
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpResponse response = client.execute(get);
+		
+		//build request JSON posted to method
+		BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+		StringBuffer buffer = new StringBuffer();
+		String line = "";
+		while((line = reader.readLine())!=null){
+			buffer.append(line);
+		}
+		JSONObject results = new JSONObject(buffer.toString());
+		BuildHelperFromJson helper = new BuildHelperFromJson();
+		List<SobjectDescribe> resultFields = helper.parseSObjectFromJSON(results);
+		BuildAccountTable table = new BuildAccountTable();
+	 int[] buildResults = table.insertValues(conn, resultFields, selector, session);
+	 
 	  return "{\"status\":200, \"message\":\"success\"}";
   }
   

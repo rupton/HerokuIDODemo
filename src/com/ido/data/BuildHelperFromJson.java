@@ -30,9 +30,8 @@ public class BuildHelperFromJson {
 			describe.soapType = field.getString("soapType");
 			describe.type = field.getString("type");
 			sObjects.add(describe);
-			logger.info("Adding " + describe.toString());
 		}
-		logger.info(sObjects.size() + " SObjects have been queued to be added to the database");
+		logger.info(sObjects.size() + " SObject fields have been queued to be added to the database");
 		//SobjectDescribe describe = mapper.readValue(content, valueType);
 		
 		return sObjects;
